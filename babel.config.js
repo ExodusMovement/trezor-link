@@ -1,7 +1,15 @@
 module.exports = (api) => {
   api.cache(true);
   const presets = [
-    `@babel/preset-env`,
+    [`@babel/preset-env`, {
+      targets: {
+        node: "8",
+        electron: "6",
+        chrome: "76",
+        firefox: "68",
+        safari: "13"
+      },
+    }],
     `@babel/preset-flow`,
   ];
 
