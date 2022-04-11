@@ -6,6 +6,9 @@
 
 'use strict';
 
+import {patch} from './protobuf/monkey_patch';
+patch();
+
 // import semvercmp from 'semver-compare';
 import {request as http, setFetch as rSetFetch} from './http';
 import type {AcquireInput, TrezorDeviceInfoWithSession, MessageFromTrezor} from '../transport';
