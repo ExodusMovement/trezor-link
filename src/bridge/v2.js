@@ -85,11 +85,11 @@ export default class BridgeTransport {
   }
 
   @debugInOut
-  async getVersion (): Promise<string> {
+  async getVersion(): Promise<string> {
     // $FlowIssue
-    const { version } = await this._post({ url: '/' })
-    this.version = version
-    return version
+    const { version } = await this._post({ url: `/` });
+    this.version = version;
+    return version;
   }
 
   @debugInOut
