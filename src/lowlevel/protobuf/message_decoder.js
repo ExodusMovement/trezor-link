@@ -70,6 +70,13 @@ function messageToJSON(message: ProtoBuf.Builder.Message) : Object {
   const res = {};
   const meta = message.$type;
 
+  if (!meta) {
+    if (message.buffer && Buffer.isBuffer(message.buffer)) {
+      const hex = message.toHex();
+      return hex;
+    }
+  }
+
   for (const key in message) {
     const value = message[key];
     if (typeof value === `function`) {
