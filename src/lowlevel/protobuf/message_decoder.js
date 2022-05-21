@@ -71,7 +71,7 @@ function messageToJSON(message: ProtoBuf.Builder.Message) : Object {
   const meta = message.$type;
 
   if (!meta) {
-    if (message.buffer && Buffer.isBuffer(message.buffer)) {
+    if (message instanceof ByteBuffer) {
       const hex = message.toHex();
       return hex;
     }
