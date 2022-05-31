@@ -8,8 +8,8 @@
     "check": "make check"
   },
   "engines": {
-    "node": "16.13.0",
-    "yarn": ">=1.19.1 <1.22.0"
+    "node": "16.13.x",
+    "yarn": ">=1.19.1 <1.22.19"
   },
   "repository": "https://github.com/trezor/trezor-link.git",
   "author": "Karel Bílek <kb@karelbilek.com>",

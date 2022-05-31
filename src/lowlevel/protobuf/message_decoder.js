@@ -9,7 +9,7 @@ import * as ProtoBuf from "protobufjs-old-fixed-webpack";
 const ByteBuffer = ProtoBuf.ByteBuffer;
 const Long = ProtoBuf.Long;
 
-import {Messages} from "./messages.js";
+import { Messages } from "./messages.js";
 
 class MessageInfo {
   messageConstructor: ProtoBuf.Builder.Message;
@@ -36,7 +36,7 @@ export class MessageDecoder {
 
   // Returns an info about this message,
   // which includes the constructor object and a name
-  _messageInfo() : MessageInfo {
+  _messageInfo(): MessageInfo {
     const r = this.messages.messagesByType[this.type];
     if (r == null) {
       throw new Error(`Method type not found - ${this.type}`);
@@ -45,19 +45,19 @@ export class MessageDecoder {
   }
 
   // Returns the name of the message
-  messageName() : string {
+  messageName(): string {
     return this._messageInfo().name;
   }
 
   // Returns the actual decoded message, as a ProtoBuf.js object
-  _decodedMessage() : ProtoBuf.Builder.Message {
+  _decodedMessage(): ProtoBuf.Builder.Message {
     const constructor = this._messageInfo().messageConstructor;
     return constructor.decode(this.data);
   }
 
   // Returns the message decoded to JSON, that could be handed back
   // to trezor.js
-  decodedJSON() : Object {
+  decodedJSON(): Object {
     const decoded = this._decodedMessage();
     const converted = messageToJSON(decoded);
 
@@ -66,14 +66,9 @@ export class MessageDecoder {
 }
 
 // Converts any ProtoBuf message to JSON in Trezor.js-friendly format
-function messageToJSON(message: ProtoBuf.Builder.Message) : Object {
+function messageToJSON(message: ProtoBuf.Builder.Message): Object {
   const res = {};
   const meta = message.$type;
-
-  if (message instanceof ByteBuffer) {
-    const hex = message.toHex();
-    return hex;
-  }
 
   for (const key in message) {
     const value = message[key];
@@ -86,8 +81,10 @@ function messageToJSON(message: ProtoBuf.Builder.Message) : Object {
       const num = value.toNumber();
       res[key] = num;
     } else if (Array.isArray(value)) {
-      const decodedArr = value.map((i) => {
-        if (typeof i === `object`) {
+      const decodedArr = value.map(i => {
+        if (i instanceof ByteBuffer) {
+          return i.toHex();
+        } else if (typeof i === "object") {
           return messageToJSON(i);
         } else {
           return i;
