@@ -114,7 +114,9 @@ export default class BridgeTransport {
 
   async _acquireMixed(input: AcquireInput, debugLink: boolean): Promise<mixed> {
     const previousStr = input.previous == null ? `null` : input.previous;
-    const url = (debugLink ? `/debug` : ``) + `/acquire/` + input.path + `/` + previousStr;
+    const encodedInputPath = encodeURIComponent(input.path);
+    const encodedPreviousStr = encodeURIComponent(previousStr);
+    const url = (debugLink ? `/debug` : ``) + `/acquire/` + encodedInputPath + `/` + encodedPreviousStr;
     return this._post({url: url});
   }
 
@@ -126,7 +128,8 @@ export default class BridgeTransport {
 
   @debugInOut
   async release(session: string, onclose: boolean, debugLink: boolean): Promise<void> {
-    const res = this._post({url: (debugLink ? `/debug` : ``) + `/release/` + session});
+    const encodedSession = encodeURIComponent(session);
+    const res = this._post({url: (debugLink ? `/debug` : ``) + `/release/` + encodedSession});
     if (onclose) {
       return;
     }
@@ -140,8 +143,9 @@ export default class BridgeTransport {
     }
     const messages = this._messages;
     const outData = buildOne(messages, name, data).toString(`hex`);
+    const encodedSession = encodeURIComponent(session);
     const resData = await this._post({
-      url: (debugLink ? `/debug` : ``) + `/call/` + session,
+      url: (debugLink ? `/debug` : ``) + `/call/` + encodedSession,
       body: outData,
     });
     if (typeof resData !== `string`) {
@@ -158,8 +162,9 @@ export default class BridgeTransport {
     }
     const messages = this._messages;
     const outData = buildOne(messages, name, data).toString(`hex`);
+    const encodedSession = encodeURIComponent(session);
     await this._post({
-      url: (debugLink ? `/debug` : ``) + `/post/` + session,
+      url: (debugLink ? `/debug` : ``) + `/post/` + encodedSession,
       body: outData,
     });
     return;
@@ -171,8 +176,9 @@ export default class BridgeTransport {
       throw new Error(`Transport not configured.`);
     }
     const messages = this._messages;
+    const encodedSession = encodeURIComponent(session);
     const resData = await this._post({
-      url: (debugLink ? `/debug` : ``) + `/read/` + session,
+      url: (debugLink ? `/debug` : ``) + `/read/` + encodedSession,
     });
     if (typeof resData !== `string`) {
       throw new Error(`Returning data is not string.`);
