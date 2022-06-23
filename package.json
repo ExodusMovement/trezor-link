@@ -11,13 +11,13 @@
     "node": "16.13.x",
     "yarn": ">=1.19.1 <1.22.19"
   },
-  "repository": "https://github.com/trezor/trezor-link.git",
+  "repository": "https://github.com/ExodusMovement/trezor-link.git",
   "author": "Karel Bílek <kb@karelbilek.com>",
   "license": "LGPL-3.0+",
   "bugs": {
-    "url": "https://github.com/trezor/trezor-link/issues"
+    "url": "https://github.com/ExodusMovement/trezor-link/issues"
   },
-  "homepage": "https://github.com/trezor/trezor-link",
+  "homepage": "https://github.com/ExodusMovement/trezor-link",
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
