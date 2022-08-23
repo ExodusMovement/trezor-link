@@ -8,7 +8,7 @@
     "check": "make check"
   },
   "engines": {
-    "node": "16.13.x",
+    "node": ">=16.13.0",
     "yarn": ">=1.19.1 <1.22.19"
   },
   "repository": "https://github.com/ExodusMovement/trezor-link.git",
