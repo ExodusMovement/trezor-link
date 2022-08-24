@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "make build",
-    "check": "make check"
+    "check": "make check",
+    "prepare": "npm run build"
   },
   "engines": {
     "node": ">=16.13.0",
