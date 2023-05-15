@@ -33,9 +33,16 @@ function contentType(body: any): string {
   }
 }
 
+function cloneString(data: string) {
+  // Electron v23.x crashes when using fetch + Buffer.toString('hex')
+  // temp solution is to clone the string value.
+  // https://github.com/electron/electron/issues/38295
+  return JSON.parse(JSON.stringify(data))
+}
+
 function wrapBody(body: any): ?string {
   if (typeof body === `string`) {
-    return body;
+    return cloneString(body);
   } else {
     return JSON.stringify(body);
   }
