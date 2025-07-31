@@ -101,7 +101,7 @@ export default class LowlevelTransportWithSharedConnections {
   }
 
   _releaseDisconnected(devices: Array<TrezorDeviceInfoWithSession>) {
-    const connected: {[session: string]: boolean} = {};
+    const connected: {[session: string]: boolean} = Object.create(null);
     devices.forEach(device => {
       if (device.session != null) {
         connected[device.session] = true;
