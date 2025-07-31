@@ -19,7 +19,7 @@ build: node_modules
 	cp -r src/ lib
 	find lib/ -type f ! -name '*.js' | xargs -I {} rm {}
 	find lib/ -name '*.js' | xargs -I {} mv {} {}.flow
-	`npm bin`/babel src --out-dir lib
+	`yarn bin`/babel src --out-dir lib
 	rm -r lib/flow-test
 
 .version: yarn git-clean git-ancestor flow eslint build
