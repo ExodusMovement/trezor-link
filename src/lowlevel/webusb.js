@@ -45,7 +45,7 @@ export default class WebUsbPlugin {
     this.debug = !!debug;
     // $FlowIssue
     const usb = navigator.usb;
-    if (usb == null) {
+    if (usb === null) {
       throw new Error(`WebUSB is not available on this browser.`);
     } else {
       this.usb = usb;
@@ -81,7 +81,7 @@ export default class WebUsbPlugin {
       // path is just serial number
       // more bootloaders => number them, hope for the best
       const serialNumber = device.serialNumber;
-      let path = (serialNumber == null || serialNumber === ``) ? `bootloader` : serialNumber;
+      let path = (serialNumber === null || serialNumber === ``) ? `bootloader` : serialNumber;
       if (path === `bootloader`) {
         bootloaderId++;
         path = path + bootloaderId;
@@ -101,7 +101,7 @@ export default class WebUsbPlugin {
 
   async _findDevice(path: string): Promise<USBDevice> {
     const deviceO = (this._lastDevices).find(d => d.path === path);
-    if (deviceO == null) {
+    if (deviceO === null) {
       throw new Error(`Action was interrupted.`);
     }
     return deviceO.device;
