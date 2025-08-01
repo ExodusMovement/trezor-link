@@ -44,7 +44,7 @@ export default class WebUsbPlugin {
   async init(debug: ?boolean): Promise<void> {
     this.debug = !!debug;
     // $FlowIssue
-    const usb = navigator.usb;
+    const usb = globalThis.navigator?.usb ?? null;
     if (usb === null) {
       throw new Error(`WebUSB is not available on this browser.`);
     } else {
