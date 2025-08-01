@@ -34,13 +34,7 @@ function stableStringify(devices: ?Array<TrezorDeviceInfoWithSession>): string {
 }
 
 function compare(a: TrezorDeviceInfoWithSession, b: TrezorDeviceInfoWithSession): number {
-  if (!isNaN(parseInt(a.path, 10))) {
-    // Numeric fake USB paths are sorted numerically
-    return parseInt(a.path, 10) - parseInt(b.path, 10);
-  } else {
-    // Hex USB paths are sorted by string comparison
-    return a.path < b.path ? -1 : (a.path > b.path ? 1 : 0);
-  }
+  return a.path.localeCompare(b.path)
 }
 
 const ITER_MAX = 60;
