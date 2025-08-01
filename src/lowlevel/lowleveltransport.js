@@ -20,13 +20,13 @@ import type {MessageFromTrezor, TrezorDeviceInfoWithSession, AcquireInput} from 
 import {debugInOut} from '../debug-decorator';
 
 function stableStringify(devices: ?Array<TrezorDeviceInfoWithSession>): string {
-  if (devices === null) {
+  if (devices == null) {
     return `null`;
   }
 
   const pureDevices = devices.map(device => {
     const path = device.path;
-    const session = device.session === null ? null : device.session;
+    const session = device.session == null ? null : device.session;
     return {path, session};
   });
 
@@ -98,17 +98,17 @@ export default class LowlevelTransportWithSharedConnections {
   _releaseDisconnected(devices: Array<TrezorDeviceInfoWithSession>) {
     const connected: {[session: string]: boolean} = Object.create(null);
     devices.forEach(device => {
-      if (device.session !== null) {
+      if (device.session != null) {
         connected[device.session] = true;
       }
     });
     Object.keys(this.deferedDebugOnRelease).forEach(session => {
-      if (connected[session] === null) {
+      if (connected[session] == null) {
         this._releaseCleanup(session, true);
       }
     });
     Object.keys(this.deferedNormalOnRelease).forEach(session => {
-      if (connected[session] === null) {
+      if (connected[session] == null) {
         this._releaseCleanup(session, false);
       }
     });
@@ -119,7 +119,7 @@ export default class LowlevelTransportWithSharedConnections {
   @debugInOut
   async listen(old: ?Array<TrezorDeviceInfoWithSession>): Promise<Array<TrezorDeviceInfoWithSession>> {
     const oldStringified = stableStringify(old);
-    const last = old === null ? this._lastStringified : oldStringified;
+    const last = old == null ? this._lastStringified : oldStringified;
     return this._runIter(0, last);
   }
 
@@ -156,7 +156,7 @@ export default class LowlevelTransportWithSharedConnections {
   @debugInOut
   async release(session: string, onclose: boolean, debugLink: boolean): Promise<void> {
     const path = Object.entries(this.sessions[debugLink ? `debugSessions` : `normalSessions`]).find(([_, s]) => s === session)?.[0];
-    if (path === null) {
+    if (path == null) {
       throw new Error(`Trying to double release.`);
     }
     const last = true;
@@ -171,7 +171,7 @@ export default class LowlevelTransportWithSharedConnections {
 
   _releaseCleanup(session: string, debugLink: boolean) {
     const table = debugLink ? this.deferedDebugOnRelease : this.deferedNormalOnRelease;
-    if (table[session] !== null) {
+    if (table[session] != null) {
       table[session].reject(new Error(`Device released or disconnected`));
       delete table[session];
     }
@@ -193,7 +193,7 @@ export default class LowlevelTransportWithSharedConnections {
   }
 
   messages(): Messages {
-    if (this._messages === null) {
+    if (!this._messages) {
       throw new Error(`Transport not configured.`);
     }
     return this._messages;
@@ -209,7 +209,7 @@ export default class LowlevelTransportWithSharedConnections {
       }
     });
 
-    if (path_ === null) {
+    if (path_ == null) {
       throw new Error(`Session not available.`);
     }
     const path: string = path_;
