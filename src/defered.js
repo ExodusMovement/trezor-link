@@ -35,11 +35,3 @@ export function resolveTimeoutPromise<T>(delay: number, result: T): Promise<T> {
     }, delay);
   });
 }
-
-export function rejectTimeoutPromise(delay: number, error: Error): Promise<any> {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      reject(error);
-    }, delay);
-  });
-}
