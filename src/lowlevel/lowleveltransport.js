@@ -59,7 +59,6 @@ export default class LowlevelTransportWithSharedConnections {
   _messages: ?Messages;
   version: string;
   configured: boolean = false;
-  stopped: boolean = false;
 
   constructor(plugin: LowlevelTransportSharedPlugin) {
     this.plugin = plugin;
@@ -275,8 +274,4 @@ export default class LowlevelTransportWithSharedConnections {
   setBridgeLatestUrl(url: string): void {
   }
   isOutdated: boolean = false;
-
-  stop(): void {
-    this.stopped = true;
-  }
 }
