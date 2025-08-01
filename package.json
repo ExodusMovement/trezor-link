@@ -39,6 +39,7 @@
     "flow-bin": "0.78.0"
   },
   "dependencies": {
+    "json-stable-stringify": "^1.0.1",
     "protobufjs-old-fixed-webpack": "3.8.5"
   }
 }
