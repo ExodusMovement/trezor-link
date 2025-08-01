@@ -144,7 +144,7 @@ export default class LowlevelTransportWithSharedConnections {
   @debugInOut
   async acquire(input: AcquireInput, debugLink: boolean): Promise<string> {
 
-    const previous = this.sessions[debugLink ? `debugSessions` : `normalSessions`][input.path];
+    const previous = this.sessions[debugLink ? `debugSessions` : `normalSessions`][input.path] ?? null;
     if (input.previous !== previous) {
         throw new Error(`wrong previous session`);
     }
