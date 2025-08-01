@@ -105,7 +105,7 @@ export default class LowlevelTransportWithSharedConnections {
   _releaseDisconnected(devices: Array<TrezorDeviceInfoWithSession>) {
     const connected: {[session: string]: boolean} = Object.create(null);
     devices.forEach(device => {
-      if (device.session != null) {
+      if (device.session !== null) {
         connected[device.session] = true;
       }
     });
@@ -145,7 +145,7 @@ export default class LowlevelTransportWithSharedConnections {
   async acquire(input: AcquireInput, debugLink: boolean): Promise<string> {
 
     const previous = this.sessions[debugLink ? `debugSessions` : `normalSessions`][input.path];
-    if (input.previous != previous) {
+    if (input.previous !== previous) {
         throw new Error(`wrong previous session`);
     }
     await this.plugin.connect(input.path, debugLink, true);
@@ -178,7 +178,7 @@ export default class LowlevelTransportWithSharedConnections {
 
   _releaseCleanup(session: string, debugLink: boolean) {
     const table = debugLink ? this.deferedDebugOnRelease : this.deferedNormalOnRelease;
-    if (table[session] != null) {
+    if (table[session] !== null) {
       table[session].reject(new Error(`Device released or disconnected`));
       delete table[session];
     }
