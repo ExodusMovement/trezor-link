@@ -174,6 +174,7 @@ export default class WebUsbPlugin {
       } catch (e) {
         // ignore
       }
+    }
 
     const interfaceId = debug ? this.debugInterfaceId : this.normalInterfaceId;
     await device.claimInterface(interfaceId);
