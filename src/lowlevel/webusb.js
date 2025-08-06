@@ -168,8 +168,12 @@ export default class WebUsbPlugin {
 
     if (first) {
       await device.selectConfiguration(this.configurationId);
-      await device.reset();
-    }
+      try {
+        // reset fails on ChromeOS and windows
+        await device.reset();
+      } catch (e) {
+        // ignore
+      }
 
     const interfaceId = debug ? this.debugInterfaceId : this.normalInterfaceId;
     await device.claimInterface(interfaceId);
